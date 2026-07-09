@@ -1,18 +1,18 @@
 "use client";
 
-import Sidebar from "../components/sidebar";
-import MessageBubble from "../components/MessageBubble";
-import QuizCard from "../components/QuizCard";
-import AuthModal, { useCurrentUser } from "../components/AuthModal";
-import ReminderManager, { ReminderBanner } from "../components/ReminderManager";
-import ProgressDashboard from "../components/ProgressDashboard";
-import CurriculumBrowser from "../components/CurriculumBrowser";
-import ImageGenerator from "../components/ImageGenerator";
-import TeacherPortal from "../components/teacher/TeacherPortal";
-import TeacherContent from "../components/teacher/teachercontent";
-import { t } from "./translations";
-import { getRemainingAttempts } from "./grading";
-import { loadPersistedLanguage, persistLanguage, SUPPORTED_LANGUAGES } from "./languageManager";
+import Sidebar from "./components/Sidebar";
+import MessageBubble from "./components/MessageBubble";
+import QuizCard from "./components/QuizCard";
+import AuthModal, { useCurrentUser } from "./components/AuthModal";
+import ReminderManager, { ReminderBanner } from "./components/ReminderManager";
+import ProgressDashboard from "./components/ProgressDashboard";
+import CurriculumBrowser from "./components/CurriculumBrowser";
+import ImageGenerator from "./components/ImageGenerator";
+import TeacherPortal from "./components/teacher/TeacherPortal";
+import TeacherContent from "./components/TeacherContent";
+import { t } from "./lib/translations";
+import { getRemainingAttempts } from "./lib/grading";
+import { loadPersistedLanguage, persistLanguage, SUPPORTED_LANGUAGES } from "./lib/languageManager";
 
 const COAT_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Coat_of_arms_of_Uganda.svg/800px-Coat_of_arms_of_Uganda.svg.png";
 
