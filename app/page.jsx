@@ -1,15 +1,18 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import dynamic from "next/dynamic";
 import Sidebar from "./components/sidebar";
 import MessageBubble from "./components/MessageBubble";
 import QuizCard from "./components/QuizCard";
-import AuthModal, { useCurrentUser } from "./components/AuthModal";
+import { useCurrentUser } from "./components/AuthModal";
 import ReminderManager, { ReminderBanner } from "./components/ReminderManager";
-import ProgressDashboard from "./components/ProgressDashboard";
 import CurriculumBrowser from "./components/CurriculumBrowser";
-import ImageGenerator from "./components/ImageGenerator";
+import TeacherPortal from "./components/teacher/TeacherPortal";
+
+const AuthModal = dynamic(() => import("./components/AuthModal"), { ssr: false });
+const ProgressDashboard = dynamic(() => import("./components/ProgressDashboard"), { ssr: false });
+const ImageGenerator = dynamic(() => import("./components/ImageGenerator"), { ssr: false });
 import TeacherPortal from "./components/teacher/TeacherPortal";
 import { t } from "./lib/translations";
 import { getRemainingAttempts } from "./lib/grading";
