@@ -1,4 +1,4 @@
-import { queryUgandaSources, getUgandaCurriculumInfo, UGANDA_LEVELS } from "@/lib/curriculum/sources";
+import { queryUgandaSources, getUgandaCurriculumInfo, UGANDA_LEVELS } from "../../lib/curriculum/sources";
 
 export async function POST(request) {
   try {
