@@ -11,7 +11,10 @@ const firebaseConfig = {
   appId:             process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Prevent re-initializing on hot reload
-export const app  = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const db   = getFirestore(app);
-export const auth = getAuth(app);
+// Only initialize Firebase in the browser, never during server-side build/prerender
+export const app  = typeof window !== "undefined"
+  ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0])
+  : null;
+
+export const db   = typeof window !== "undefined" ? getFirestore(app) : null;
+export const auth = typeof window !== "undefined" ? getAuth(app) : null;
