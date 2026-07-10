@@ -4,7 +4,7 @@ import {
   fetchQuizzesFromCloud,
   fetchAssignmentsFromCloud,
   fetchMaterialsFromCloud,
-} from "../lib/teacherStudentBridge";
+} from "../../lib/teacherStudentBridge";
 
 export default function TeacherContent({ onStartQuiz, onClose }) {
   const [quizzes,     setQuizzes]     = useState([]);

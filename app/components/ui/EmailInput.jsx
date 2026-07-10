@@ -3,7 +3,7 @@
 // ─── Email input with real-time validation feedback ───────────────────────────
 
 import { useState, useId } from "react";
-import { validateEmail }   from "../../../lib/security/sanitize.js";
+import { validateEmail }   from "../../lib/security/sanitize.js";
 
 /**
  * Props:
