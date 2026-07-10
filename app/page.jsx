@@ -10,9 +10,9 @@ import ReminderManager, { ReminderBanner } from "./components/ReminderManager";
 import CurriculumBrowser from "./components/CurriculumBrowser";
 import TeacherPortal from "./components/teacher/TeacherPortal";
 
-const AuthModal = dynamic(() => import("./components/AuthModal"), { ssr: false });
-const ProgressDashboard = dynamic(() => import("./components/ProgressDashboard"), { ssr: false });
-const ImageGenerator = dynamic(() => import("./components/ImageGenerator"), { ssr: false });
+const AuthModal = dynamic(() => import("./components/AuthModal"));
+const ProgressDashboard = dynamic(() => import("./components/ProgressDashboard"));
+const ImageGenerator = dynamic(() => import("./components/ImageGenerator"));
 import TeacherPortal from "./components/teacher/TeacherPortal";
 import { t } from "./lib/translations";
 import { getRemainingAttempts } from "./lib/grading";
