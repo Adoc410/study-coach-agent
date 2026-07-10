@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebar";
 import MessageBubble from "./components/MessageBubble";
 import QuizCard from "./components/QuizCard";
 import AuthModal, { useCurrentUser } from "./components/AuthModal";
