@@ -1,14 +1,7 @@
-import { OpenAI } from "openai";
+import OpenAI from "openai";
 
-export async function POST(req) {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    return new Response(JSON.stringify({ error: "OPENAI_API_KEY not set" }), { status: 500 });
-  }
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  const client = new OpenAI({ apiKey });
-  // ... rest of your handler
-}
 // ─── Subject inference (mirrors ProgressDashboard logic) ──────────────────────
 const SUBJECT_KEYWORDS = {
   "Mathematics":      ["math","algebra","geometry","calculus","trigonometry","statistics","arithmetic","number","equation","fraction","probability","quadratic","polynomial","logarithm"],
