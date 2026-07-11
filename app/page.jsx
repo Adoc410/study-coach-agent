@@ -1,7 +1,7 @@
 "use client";
 export const dynamic = "force-dynamic";
 
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import Sidebar from "./components/sidebar";
 import MessageBubble from "./components/MessageBubble";
 import QuizCard from "./components/QuizCard";
@@ -9,14 +9,14 @@ import { useCurrentUser } from "./components/AuthModal";
 import ReminderManager, { ReminderBanner } from "./components/ReminderManager";
 import CurriculumBrowser from "./components/CurriculumBrowser";
 import TeacherPortal from "./components/teacher/TeacherPortal";
-
-const AuthModal = dynamic(() => import("./components/AuthModal"));
-const ProgressDashboard = dynamic(() => import("./components/ProgressDashboard"));
-const ImageGenerator = dynamic(() => import("./components/ImageGenerator"));
-import TeacherPortal from "./components/teacher/TeacherPortal";
 import { t } from "./lib/translations";
 import { getRemainingAttempts } from "./lib/grading";
 import { loadPersistedLanguage, persistLanguage, SUPPORTED_LANGUAGES } from "./lib/languageManager";
+
+const AuthModal = nextDynamic(() => import("./components/AuthModal"), { ssr: false });
+const ProgressDashboard = nextDynamic(() => import("./components/ProgressDashboard"), { ssr: false });
+const ImageGenerator = nextDynamic(() => import("./components/ImageGenerator"), { ssr: false });
+
 
 const COAT_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Coat_of_arms_of_Uganda.svg/800px-Coat_of_arms_of_Uganda.svg.png";
 
