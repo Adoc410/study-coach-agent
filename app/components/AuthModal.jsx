@@ -13,8 +13,19 @@ import {
 } from "firebase/auth";
 import { app } from "../lib/firebase";
 
-const auth     = getAuth(app);
-const provider = new GoogleAuthProvider();
+let _auth = null;
+let _provider = null;
+
+function getFirebaseAuth() {
+  if (typeof window === "undefined") return null;
+  if (!_auth) _auth = getAuth(app);
+  return _auth;
+}
+
+function getGoogleProvider() {
+  if (!_provider) _provider = new GoogleAuthProvider();
+  return _provider;
+}
 
 // ─── Storage key helpers (per-user isolation) ─────────────────────────────────
 export const SESSION_KEY  = "sca_session";
@@ -88,7 +99,7 @@ export function useCurrentUser() {
     if (session) setUser(session);
 
     // Then listen to Firebase auth state
-    const unsub = onAuthStateChanged(auth, firebaseUser => {
+    const unsub = onAuthStateChanged(getFirebaseAuth(), firebaseUser => {
       if (firebaseUser) {
         const userData = {
           id:     firebaseUser.uid,
@@ -113,7 +124,7 @@ export function useCurrentUser() {
   const updateUser = (u) => {
     setUser(u);
     if (u) saveSession(u);
-    else { clearSession(); signOut(auth); }
+    else { clearSession(); signOut(getFirebaseAuth()); }
   };
 
   return [user, updateUser, ready];
@@ -145,7 +156,7 @@ function StudentAuth({ onLogin, onSwitchToTeacher }) {
   const handleGoogleLogin = async () => {
     setError(""); setLoading(true);
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(getFirebaseAuth(), getGoogleProvider());
       const u = result.user;
       onLogin({
         id:     u.uid,
@@ -172,7 +183,7 @@ function StudentAuth({ onLogin, onSwitchToTeacher }) {
       if (password !== confirm) { setError("Passwords do not match.");               return; }
       setLoading(true);
       try {
-        const cred = await createUserWithEmailAndPassword(auth, email.trim(), password);
+        const cred = await createUserWithEmailAndPassword(getFirebaseAuth(), email.trim(), password);
         // Send verification email
         await sendEmailVerification(cred.user);
         setInfo("✅ Account created! Please check your email to verify your account before signing in.");
@@ -188,10 +199,10 @@ function StudentAuth({ onLogin, onSwitchToTeacher }) {
     // Login
     setLoading(true);
     try {
-      const cred = await signInWithEmailAndPassword(auth, email.trim(), password);
+      const cred = await signInWithEmailAndPassword(getFirebaseAuth(), email.trim(), password);
       if (!cred.user.emailVerified) {
         setError("Please verify your email before signing in. Check your inbox for a verification link.");
-        await signOut(auth);
+        await signOut(getFirebaseAuth());
         setLoading(false);
         return;
       }
@@ -213,7 +224,7 @@ function StudentAuth({ onLogin, onSwitchToTeacher }) {
     if (!resetEmail.trim()) { setError("Please enter your email."); return; }
     setLoading(true); setError("");
     try {
-      await sendPasswordResetEmail(auth, resetEmail.trim());
+      await sendPasswordResetEmail(getFirebaseAuth(), resetEmail.trim());
       setResetSent(true);
     } catch (err) {
       setError(getFriendlyError(err.code));
@@ -251,8 +262,7 @@ function StudentAuth({ onLogin, onSwitchToTeacher }) {
       </div>
     );
   }
-
-  return (
+return (
     <div>
       <div style={{ fontSize: 52, marginBottom: 8, textAlign: "center" }}>🎓</div>
       <h2 style={{ color: "#3b82f6", margin: "0 0 4px", fontSize: 20, fontWeight: 800, textAlign: "center" }}>
