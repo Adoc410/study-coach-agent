@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect, useCallback } from "react";
 import nextDynamic from "next/dynamic";
 import Sidebar from "./components/sidebar";
 import MessageBubble from "./components/MessageBubble";
@@ -12,10 +13,9 @@ import { t } from "./lib/translations";
 import { getRemainingAttempts } from "./lib/grading";
 import { loadPersistedLanguage, persistLanguage, SUPPORTED_LANGUAGES } from "./lib/languageManager";
 
-const AuthModal = nextDynamic(() => import("./components/AuthModal"), { ssr: false });
-const ProgressDashboard = nextDynamic(() => import("./components/ProgressDashboard"), { ssr: false });
-const ImageGenerator = nextDynamic(() => import("./components/ImageGenerator"), { ssr: false });
-
+const AuthModal = nextDynamic(() => import("./components/AuthModal"));
+const ProgressDashboard = nextDynamic(() => import("./components/ProgressDashboard"));
+const ImageGenerator = nextDynamic(() => import("./components/ImageGenerator"));
 
 const COAT_URL = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Coat_of_arms_of_Uganda.svg/800px-Coat_of_arms_of_Uganda.svg.png";
 
@@ -442,7 +442,7 @@ function StudentApp({ user, onLogout }) {
 }
 
 // ─── Root router ──────────────────────────────────────────────────────────────
-export default function App() {
+export default function HomeClient() {
   const [user, setUser, ready] = useCurrentUser();
   const [showAuth, setShowAuth] = useState(false);
 
